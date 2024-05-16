@@ -11,6 +11,9 @@ export class Planet {
 
   getIdFromUrl(url) {
     const urlParts = url.split('/');
+    if (urlParts.length < 3 || !urlParts[urlParts.length - 2]) {
+      throw new Error('Nieprawidłowy URL: ' + url);
+    }
     return urlParts[urlParts.length - 2];
   }
 }
