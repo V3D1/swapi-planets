@@ -15,13 +15,14 @@
         <h1 class="text-h3 font-weight-bold">Star Wars Planets API</h1>
       </div>
       <div class="py-4" />
-      <TableComponent :data='planetsData' :isLoading='isLoading' :headers='headers' :planetsCount='planetsCount' @changePagination='changePagination' @goToDetails='goToDetails' :defaultSort='defaultSort' />
+      <TableComponent :data='planetsData' :isLoading='isLoading' :headers='headers' :planetsCount='planetsCount' @changePagination='changePagination' @goToDetails='goToDetails' :sortBy='sortBy' />
       <div class="mt-4">
         <p class='text-center mb-3'>Click button below to choose sort order</p>
         <div class='d-flex justify-center flex-wrap ga-3'>
           <v-btn @click="changeSort('rotation_period')">Rotation period</v-btn>
           <v-btn @click="changeSort('climate')">Climate</v-btn>
           <v-btn @click="changeSort('created')">Created</v-btn>
+          <v-btn @click="changeSort">Reset</v-btn>
         </div>
       </div>
     </v-responsive>
@@ -50,8 +51,8 @@ const headers = [
   { title: 'Created', key: 'created' },
   { title: 'Options', key: 'url' },
 ]
-const defaultSort = ref([{ key: 'population', order: 'asc' }])
-const changeSort = (sortValue) => defaultSort.value = [{ key: sortValue, order: 'asc' }]
+const sortBy = ref([{ key: 'population', order: 'asc' }])
+const changeSort = (sortValue) => sortValue ? sortBy.value = [{ key: sortValue, order: 'asc' }] : sortBy.value = []
 
 onMounted(async () => {
   isLoading.value = true
@@ -80,5 +81,6 @@ const goToDetails = async (id) => {
 
 .levitating {
   animation: levitate 4s ease-in-out infinite;
+  will-change: transform;
 }
 </style>

@@ -41,7 +41,12 @@ onMounted(async () => {
   isLoading.value = false
 })
 
-const goBack = () => router.back()
+const goBack = () => {  
+  try {
+    router.back()
+  } catch (error) {
+    console.error("Navigation error:", error)
+}}
 </script>
 <style scoped>
 @keyframes levitate {
@@ -55,5 +60,6 @@ const goBack = () => router.back()
 
 .levitating {
   animation: levitate 4s ease-in-out infinite;
+  will-change: transform;
 }
 </style>

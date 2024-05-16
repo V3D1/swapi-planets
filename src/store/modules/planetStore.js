@@ -39,10 +39,7 @@ const actions = {
 
 const mutations = {
   setPlanets (state, planets) {
-    state.allPlanets = []
-    for (const planet of planets) {
-      state.allPlanets.push(new Planet(planet))
-    }
+    state.allPlanets = planets.map(planet => new Planet(planet));
   },
   setPlanetDetails (state, planetData) {
     state.planetDetails = new Planet(planetData)

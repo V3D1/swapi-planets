@@ -2,6 +2,7 @@
   <v-card flat>
     <v-data-table 
     v-model:sort-by="sortBy"
+    v-memo="[data, isLoading, search, sortBy, page, pageCount]"
     :items="data"
     :fixed-header="true"
     :loading='isLoading' 
@@ -62,7 +63,7 @@ const props = defineProps({
     type: Number,
     required: false
   },
-  defaultSort: {
+  sortBy: {
     type: Array,
     required: false,
     defaultValue: []
@@ -71,9 +72,9 @@ const props = defineProps({
 
 const emit = defineEmits(['changePagination', 'goToDetails'])
 
-const sortBy = ref(props.defaultSort)
+const sortBy = ref(props.sortBy)
 watch(
-  () => props.defaultSort,
+  () => props.sortBy,
   (newSort) => {
     sortBy.value = newSort;
   }

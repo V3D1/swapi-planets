@@ -1,36 +1,25 @@
 import instance from '@/services/api'
 
+async function fetchData(url) {
+  try {
+    const response = await instance.get(url)
+    return response.data
+  } catch (error) {
+    console.error('API error:', error)
+    throw new Error('An error occurred while fetching data from the API.')
+  }
+}
+
 export class PlanetService {
-  async getPlanets () {
-    try {
-      const response = await instance.get('/planets', { headers: {
-        'Content-Type': 'application/json'
-      }})
-      return response.data
-    } catch (error) {
-      return error
-    }
+  getPlanets() {
+    return fetchData('/planets')
   }
-  async getPlanetDetails (id) {
-    try {
-      const response = await instance.get(`/planets/${id}`, { headers: {
-        'Content-Type': 'application/json'
-      }})
-      return response.data
-    } catch (error) {
-      return error
-    }
+
+  getPlanetDetails(id) {
+    return fetchData(`/planets/${id}`)
   }
-  async getPlanetsFromPage (page) {
-    try {
-      const response = await instance.get(`/planets/?page=${page}`, { 
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      })
-      return response.data
-    } catch (error) {
-      return error
-    }
+
+  getPlanetsFromPage(page) {
+    return fetchData(`/planets/?page=${page}`)
   }
 }
